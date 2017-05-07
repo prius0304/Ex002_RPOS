@@ -45,8 +45,13 @@ namespace UDP_Socket
                 EndPoint point = new IPEndPoint(IPAddress.Any, 0);
                 byte[] buffer = new byte[1024];
                 int length = server.ReceiveFrom(buffer, ref point);
-                string message = Encoding.UTF8.GetString(buffer, 0, length);
-                Console.WriteLine(point.ToString() + " " + message);
+                //string message = Encoding.UTF8.GetString(buffer, 0, length);
+                //Console.WriteLine(point.ToString() + "   " + message);
+                Console.Write(point.ToString() + "   ");
+                for(int i=0;i<buffer.Length;i++)
+                    Console.Write(buffer[i] + "   ");
+                Console.WriteLine();
+                Console.WriteLine();
             }
         }
     }
