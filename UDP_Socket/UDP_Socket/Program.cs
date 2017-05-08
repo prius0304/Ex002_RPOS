@@ -61,6 +61,7 @@ namespace UDP_Socket
 
             Thread t2 = new Thread(sendMsg);
             t2.Start();*/
+            Console.ReadLine();
         }
     }
 }

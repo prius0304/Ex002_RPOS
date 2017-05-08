@@ -43,9 +43,7 @@ namespace UDP_Socket
 
 		private void CMD_Register(byte[] name, string usage, CMD_List.DelegateMethod method)
 		{
-            int ret;
-
-            Subyte(cmd_list[cmd_num_current].name, name, 0, name.Length);
+            cmd_list[cmd_num_current].name = name;
             cmd_list[cmd_num_current].usage = usage;
             cmd_list[cmd_num_current].delegateMethod = method;
 
@@ -54,23 +52,23 @@ namespace UDP_Socket
 
 		public CLI()
 		{
-            byte[] rpos = new byte[] { 0x52, 0x50, 0x4F, 0x53 };
+            byte[] rpos = new byte[4] { 0x52, 0x50, 0x4F, 0x53 };
             CMD_Register(rpos, "RPOS", RPOS);
 		}
-        public void command(byte[] args)
+        public void command(byte[] argv)
         {
             byte[] Command_name = new byte[4];
             byte[] Command_value = new byte[514];
 
-            if (args.Length > 5)
+            if (argv.Length > 5)
             {
-                Subyte(Command_name, args, 0, 3);
-                Subyte(Command_value, args, 5, args.Length);
+                Subyte(Command_name, argv, 0, 3);
+                Subyte(Command_value, argv, 5, argv.Length);
             }
             else
             {
-                Subyte(Command_name, args, 0, 3);
-                Subyte(Command_value, args, 4, 4);
+                Subyte(Command_name, argv, 0, 3);
+                Subyte(Command_value, argv, 4, 4);
             }
 
             for (int i = 0; i < Command_name.Length; i++)
@@ -80,7 +78,6 @@ namespace UDP_Socket
                 Console.Write(Command_value[i] + " ");
             Console.WriteLine();
         }
-
 
         public void RPOS(byte[] argv)
         {
