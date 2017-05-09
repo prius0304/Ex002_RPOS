@@ -37,7 +37,7 @@ namespace UDP_Socket
             while (true)
             {
                 EndPoint point = new IPEndPoint(IPAddress.Any, 0);
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[509];
                 int length = server.ReceiveFrom(buffer, ref point);
                 //string message = Encoding.UTF8.GetString(buffer, 0, length);
                 //Console.WriteLine(point.ToString() + "   " + message);
@@ -45,7 +45,8 @@ namespace UDP_Socket
                 for (int i = 0; i < buffer.Length; i++)
                     Console.Write(buffer[i] + "   ");
                 Console.WriteLine();
-                Console.WriteLine();
+
+                cli.command(buffer);
             }
         }
 
@@ -55,14 +56,14 @@ namespace UDP_Socket
             server.Bind(new IPEndPoint(IPAddress.Parse(IP_ADD), Loc_Port));
             Console.WriteLine("服务端开启！");
 
-            cli.command(help);
-			cli.command(RPOS);
+            //cli.command(help);
+			//cli.command(RPOS);
 
-            /*Thread t1 = new Thread(ReciveMsg);
+            Thread t1 = new Thread(ReciveMsg);
             t1.Start();
 
             Thread t2 = new Thread(sendMsg);
-            t2.Start();*/
+            t2.Start();
             Console.ReadLine();
         }
     }
