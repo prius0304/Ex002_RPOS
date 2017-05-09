@@ -18,6 +18,7 @@ namespace UDP_Socket
         static int Loc_Port = 56833;
         static int Des_Port = 49000;
 
+        static byte[] help = new byte[4] { 0x48, 0x45, 0x4C, 0x50 };
         static byte[] RPOS = new byte[7] { 0x52, 0x50, 0x4F, 0x53, 0x00, 0x31, 0x00 };
 
         static void sendMsg()
@@ -54,6 +55,7 @@ namespace UDP_Socket
             server.Bind(new IPEndPoint(IPAddress.Parse(IP_ADD), Loc_Port));
             Console.WriteLine("服务端开启！");
 
+            cli.command(help);
 			cli.command(RPOS);
 
             /*Thread t1 = new Thread(ReciveMsg);
