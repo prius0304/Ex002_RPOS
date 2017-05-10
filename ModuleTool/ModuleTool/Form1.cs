@@ -79,7 +79,7 @@ namespace ModuleTool
 
         private void btnGet_Click(object sender, EventArgs e)
         {
-            byte[] temp = xpipc.VEHX(0, 121.325344, 121.325344, 121.325344, 10.5f, 10.5f, 10.5f);
+            byte[] temp = xpipc.VEHX(0, 116.403147, 39.914365, 50, 0f, 0f, 0f);
             for(int i =0;i<temp.Length;i++)
                 Console.Write(temp[i] + " ");
         }

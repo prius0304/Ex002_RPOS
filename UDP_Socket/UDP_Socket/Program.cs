@@ -22,18 +22,19 @@ namespace UDP_Socket
         static XPIPC xpipc = new XPIPC();
 
         static byte[] help = new byte[4] { 0x48, 0x45, 0x4C, 0x50 };
-        static byte[] RPOS = new byte[] { 0x52, 0x50, 0x4F, 0x53, 0x00, 0x36, 0x30, 0x00 };
+        static byte[] RPOS = new byte[] { 0x52, 0x50, 0x4F, 0x53, 0x00, 0x36, 0x00 };
+        static byte[] RADR = new byte[] { 0x52, 0x41, 0x44, 0x52, 0x00, 0x36, 0x00 };
 
         static void sendMsg()
         {
             EndPoint point = new IPEndPoint(IPAddress.Parse(IP_ADD), Des_Port);
             while (true)
             {
-                float msg = Convert.ToSingle(Console.ReadLine());
+                string msg = Console.ReadLine();
                 //server.SendTo(Encoding.UTF8.GetBytes(msg), point);
-                //server.SendTo(RPOS, point);
-
-                server.SendTo(xpipc.VEHX(0, 121.0, 31.0, 50, 0.0f, msg, 0.116969f), point);
+                server.SendTo(RADR, point);
+                Console.WriteLine("Sent message.");
+                //server.SendTo(xpipc.VEHX(0, 31.1500914774, 121.8582916260, 200.0, 0f, 0f, 0f), point);
             }
         }
 
@@ -45,10 +46,11 @@ namespace UDP_Socket
                 byte[] buffer = new byte[509];
                 int length = server.ReceiveFrom(buffer, ref point);
                 string message = Encoding.UTF8.GetString(buffer, 0, length);
-                Console.WriteLine(point.ToString() + "   " + message);
+                //Console.WriteLine(point.ToString() + "   " + message);
 
-                //xpipc.Process(buffer);
+                xpipc.Process(buffer);
                 //display_rpos();
+                display_radr();
             }
         }
 
@@ -68,6 +70,15 @@ namespace UDP_Socket
             Console.WriteLine("Prad=            " + xpipc.Offset.Prad);
             Console.WriteLine("Qrad=            " + xpipc.Offset.Qrad);
             Console.WriteLine("Rrad=            " + xpipc.Offset.Rrad);
+        }
+
+        static void display_radr()
+        {
+            Console.Clear();
+            Console.WriteLine("lon=                 " + xpipc.Offset.lon);
+            Console.WriteLine("lat=                 " + xpipc.Offset.lat);
+            Console.WriteLine("storm_level_0_100=   " + xpipc.Offset.storm_level_0_100);
+            Console.WriteLine("storm_height_meters= " + xpipc.Offset.storm_hight_meters);
         }
 
         static void Main(string[] args)

@@ -23,8 +23,6 @@ namespace XPIPC_Module
                 for (int i = 0; i < argv.Length - 5; i++)
                     command_argv[i] = argv[i + 5];
 
-                Console.WriteLine(command_name);
-
                 switch(command_name)
                 {
                     case "RPOS":
