@@ -92,17 +92,124 @@ namespace XPIPC_Module
 
         public byte[] VEHX(int p, double dat_lat, double dat_lon, double dat_ele, float veh_psi_true, float veh_the, float veh_phi)
         {
-            byte[] command_arr = new byte[45];
-            string2xp("VEHX", command_arr, 0);
-            int2xp(p, command_arr, 5);
-            double2xp(dat_lat, command_arr, 9);
-            double2xp(dat_lon, command_arr, 17);
-            double2xp(dat_ele, command_arr, 25);
-            float2xp(veh_psi_true, command_arr, 33);
-            float2xp(veh_the, command_arr, 37);
-            float2xp(veh_phi, command_arr, 41);
+            try
+            {
+                byte[] command_arr = new byte[45];
+                string2xp("VEHX", command_arr, 0);
+                int2xp(p, command_arr, 5);
+                double2xp(dat_lat, command_arr, 9);
+                double2xp(dat_lon, command_arr, 17);
+                double2xp(dat_ele, command_arr, 25);
+                float2xp(veh_psi_true, command_arr, 33);
+                float2xp(veh_the, command_arr, 37);
+                float2xp(veh_phi, command_arr, 41);
 
-            return command_arr;
+                return command_arr;
+            }
+            catch(Exception ex)
+            {
+                byte[] err = new byte[1] { 0 };
+                Console.WriteLine(ex.Message);
+                return err;
+            }
+        }
+
+        public byte[] ACFN(int acfn_p, string acfn_path_rel, int livery_index)
+        {
+            try
+            {
+                byte[] command_arr = new byte[163];
+                string2xp("ACFN", command_arr, 0);
+                int2xp(acfn_p, command_arr, 5);
+                string2xp(acfn_path_rel, command_arr, 9);
+                int2xp(livery_index, command_arr, 159);
+
+                return command_arr;
+            }
+            catch (Exception ex)
+            {
+                byte[] err = new byte[1] { 0 };
+                Console.WriteLine(ex.Message);
+                return err;
+            }
+        }
+
+        public byte[] PREL(int type_start, int p_idx, string apt_id, int apt_rwy_idx, int apt_rwy_dir, double dob_lat_deg, double dob_lon_deg,double dob_ele_mtr, double dob_psi_tru, double dob_spd_msc)
+        {
+            try
+            {
+                byte[] command_arr = new byte[65];
+                string2xp("PREL", command_arr, 0);
+                int2xp(type_start, command_arr, 5);
+                int2xp(p_idx, command_arr, 9);
+                string2xp(apt_id, command_arr, 13);
+                int2xp(apt_rwy_idx, command_arr, 17);
+                int2xp(apt_rwy_dir, command_arr, 21);
+                double2xp(dob_lat_deg, command_arr,25);
+                double2xp(dob_lon_deg, command_arr,33);
+                double2xp(dob_ele_mtr, command_arr,41);
+                double2xp(dob_psi_tru, command_arr,49);
+                double2xp(dob_spd_msc, command_arr,57);
+
+                return command_arr;
+            }
+            catch (Exception ex)
+            {
+                byte[] err = new byte[1] { 0 };
+                Console.WriteLine(ex.Message);
+                return err;
+            }
+        }
+
+        public byte[] ACPR(int acfn_p, string acfn_path_rel, int livery_index, int type_start, int p_idx, string apt_id, int apt_rwy_idx, int apt_rwy_dir, double dob_lat_deg, double dob_lon_deg, double dob_ele_mtr, double dob_psi_tru, double dob_spd_msc)
+        {
+            try
+            {
+                byte[] command_arr = new byte[229];
+
+                string2xp("ACFN", command_arr, 0);
+                int2xp(acfn_p, command_arr, 5);
+                string2xp(acfn_path_rel, command_arr, 9);
+                int2xp(livery_index, command_arr, 159);
+
+                string2xp("", command_arr, 163);
+
+                string2xp("PREL", command_arr, 164);
+                int2xp(type_start, command_arr, 169);
+                int2xp(p_idx, command_arr, 173);
+                string2xp(apt_id, command_arr, 177);
+                int2xp(apt_rwy_idx, command_arr, 181);
+                int2xp(apt_rwy_dir, command_arr, 185);
+                double2xp(dob_lat_deg, command_arr, 189);
+                double2xp(dob_lon_deg, command_arr, 197);
+                double2xp(dob_ele_mtr, command_arr, 205);
+                double2xp(dob_psi_tru, command_arr, 213);
+                double2xp(dob_spd_msc, command_arr, 221);
+
+                return command_arr;
+            }
+            catch (Exception ex)
+            {
+                byte[] err = new byte[1] { 0 };
+                Console.WriteLine(ex.Message);
+                return err;
+            }
+        }
+
+        public byte[] CMND(string method)
+        {
+            try
+            {
+                byte[] command_arr = new byte[163];
+
+                return command_arr;
+            }
+            catch (Exception ex)
+            {
+                byte[] err = new byte[1] { 0 };
+                Console.WriteLine(ex.Message);
+                return err;
+            }
         }
 
         #region "数型转换方法"

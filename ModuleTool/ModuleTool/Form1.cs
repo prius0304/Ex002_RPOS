@@ -77,5 +77,11 @@ namespace ModuleTool
             Console.WriteLine("Rrad=            " + xpipc.Offset.Rrad);
         }
 
+        private void btnGet_Click(object sender, EventArgs e)
+        {
+            byte[] temp = xpipc.VEHX(0, 121.325344, 121.325344, 121.325344, 10.5f, 10.5f, 10.5f);
+            for(int i =0;i<temp.Length;i++)
+                Console.Write(temp[i] + " ");
+        }
     }
 }

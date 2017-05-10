@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.btnSend = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnGet = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSend
@@ -51,11 +52,22 @@
             this.textBox1.Size = new System.Drawing.Size(779, 237);
             this.textBox1.TabIndex = 2;
             // 
+            // btnGet
+            // 
+            this.btnGet.Location = new System.Drawing.Point(797, 39);
+            this.btnGet.Name = "btnGet";
+            this.btnGet.Size = new System.Drawing.Size(75, 23);
+            this.btnGet.TabIndex = 3;
+            this.btnGet.Text = "提取";
+            this.btnGet.UseVisualStyleBackColor = true;
+            this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 261);
+            this.Controls.Add(this.btnGet);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnSend);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -73,6 +85,7 @@
 
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnGet;
     }
 }
 

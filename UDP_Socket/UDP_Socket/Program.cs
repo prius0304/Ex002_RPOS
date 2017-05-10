@@ -29,9 +29,11 @@ namespace UDP_Socket
             EndPoint point = new IPEndPoint(IPAddress.Parse(IP_ADD), Des_Port);
             while (true)
             {
-                string msg = Console.ReadLine();
+                float msg = Convert.ToSingle(Console.ReadLine());
                 //server.SendTo(Encoding.UTF8.GetBytes(msg), point);
-                server.SendTo(RPOS, point);
+                //server.SendTo(RPOS, point);
+
+                server.SendTo(xpipc.VEHX(0, 121.0, 31.0, 50, 0.0f, msg, 0.116969f), point);
             }
         }
 
@@ -42,11 +44,11 @@ namespace UDP_Socket
                 EndPoint point = new IPEndPoint(IPAddress.Any, 0);
                 byte[] buffer = new byte[509];
                 int length = server.ReceiveFrom(buffer, ref point);
-                //string message = Encoding.UTF8.GetString(buffer, 0, length);
-                //Console.WriteLine(point.ToString() + "   " + message);
+                string message = Encoding.UTF8.GetString(buffer, 0, length);
+                Console.WriteLine(point.ToString() + "   " + message);
 
-                xpipc.Process(buffer);
-                display_rpos();
+                //xpipc.Process(buffer);
+                //display_rpos();
             }
         }
 

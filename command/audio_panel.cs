@@ -1,0 +1,10 @@
+public const string transmit_audio_com1 = "sim/audio_panel/transmit_audio_com1";           //Transmit audio: COM1.
+public const string transmit_audio_com2 = "sim/audio_panel/transmit_audio_com2";           //Transmit audio: COM2.
+public const string monitor_audio_com1 = "sim/audio_panel/monitor_audio_com1";           //Monitor audio: COM1.
+public const string monitor_audio_com2 = "sim/audio_panel/monitor_audio_com2";           //Monitor audio: COM2.
+public const string monitor_audio_nav1 = "sim/audio_panel/monitor_audio_nav1";           //Monitor audio: NAV1.
+public const string monitor_audio_nav2 = "sim/audio_panel/monitor_audio_nav2";           //Monitor audio: NAV2.
+public const string monitor_audio_adf1 = "sim/audio_panel/monitor_audio_adf1";           //Monitor audio: ADF2.
+public const string monitor_audio_adf2 = "sim/audio_panel/monitor_audio_adf2";           //Monitor audio: ADF2.
+public const string monitor_audio_dme = "sim/audio_panel/monitor_audio_dme";           //Monitor audio: DME.
+public const string monitor_audio_mkr = "sim/audio_panel/monitor_audio_mkr";           //Monitor audio: MKR.

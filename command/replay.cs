@@ -1,0 +1,12 @@
+public const string replay_toggle = "sim/replay/replay_toggle";           //Toggle replay mode on/off.
+public const string replay_off = "sim/replay/replay_off";           //Replay mode off.
+public const string replay_controls_toggle = "sim/replay/replay_controls_toggle";           //Replay mode: Toggle controls visibility.
+public const string rep_begin = "sim/replay/rep_begin";           //Replay mode: go to beginning.
+public const string rep_play_fr = "sim/replay/rep_play_fr";           //Replay mode: play fast reverse.
+public const string rep_play_rr = "sim/replay/rep_play_rr";           //Replay mode: play reverse.
+public const string rep_play_sr = "sim/replay/rep_play_sr";           //Replay mode: play slow reverse.
+public const string rep_pause = "sim/replay/rep_pause";           //Replay mode: pause.
+public const string rep_play_sf = "sim/replay/rep_play_sf";           //Replay mode: play slow forward.
+public const string rep_play_rf = "sim/replay/rep_play_rf";           //Replay mode: play forward.
+public const string rep_play_ff = "sim/replay/rep_play_ff";           //Replay mode: play fast forward.
+public const string rep_end = "sim/replay/rep_end";           //Replay mode: go to end.
