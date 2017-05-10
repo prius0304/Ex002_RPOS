@@ -8,6 +8,8 @@ using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 
+using XPIPC_Module;
+
 namespace UDP_Socket
 {
     class Program
@@ -17,9 +19,10 @@ namespace UDP_Socket
         static string IP_ADD = "127.0.0.1";
         static int Loc_Port = 56833;
         static int Des_Port = 49000;
+        static XPIPC xpipc = new XPIPC();
 
         static byte[] help = new byte[4] { 0x48, 0x45, 0x4C, 0x50 };
-        static byte[] RPOS = new byte[7] { 0x52, 0x50, 0x4F, 0x53, 0x00, 0x31, 0x00 };
+        static byte[] RPOS = new byte[] { 0x52, 0x50, 0x4F, 0x53, 0x00, 0x36, 0x30, 0x00 };
 
         static void sendMsg()
         {
@@ -41,13 +44,28 @@ namespace UDP_Socket
                 int length = server.ReceiveFrom(buffer, ref point);
                 //string message = Encoding.UTF8.GetString(buffer, 0, length);
                 //Console.WriteLine(point.ToString() + "   " + message);
-                Console.Write(point.ToString() + "   ");
-                for (int i = 0; i < buffer.Length; i++)
-                    Console.Write(buffer[i] + "   ");
-                Console.WriteLine();
 
-                cli.command(buffer);
+                xpipc.Process(buffer);
+                display_rpos();
             }
+        }
+
+        static void display_rpos()
+        {
+            Console.Clear();
+            Console.WriteLine("dat_lon=         " + xpipc.Offset.dat_lon);
+            Console.WriteLine("dat_lat=         " + xpipc.Offset.dat_lat);
+            Console.WriteLine("dat_ele=         " + xpipc.Offset.dat_ele);
+            Console.WriteLine("y_agl_mtr=       " + xpipc.Offset.y_agl_mtr);
+            Console.WriteLine("veh_the_loc=     " + xpipc.Offset.veh_the_loc);
+            Console.WriteLine("veh_psi_loc=     " + xpipc.Offset.veh_psi_loc);
+            Console.WriteLine("veh_phi_loc=     " + xpipc.Offset.veh_phi_loc);
+            Console.WriteLine("vx_wrl=          " + xpipc.Offset.vx_wrl);
+            Console.WriteLine("vy_wrl=          " + xpipc.Offset.vy_wrl);
+            Console.WriteLine("vz_wrl=          " + xpipc.Offset.vz_wrl);
+            Console.WriteLine("Prad=            " + xpipc.Offset.Prad);
+            Console.WriteLine("Qrad=            " + xpipc.Offset.Qrad);
+            Console.WriteLine("Rrad=            " + xpipc.Offset.Rrad);
         }
 
         static void Main(string[] args)
@@ -56,15 +74,11 @@ namespace UDP_Socket
             server.Bind(new IPEndPoint(IPAddress.Parse(IP_ADD), Loc_Port));
             Console.WriteLine("服务端开启！");
 
-            //cli.command(help);
-			//cli.command(RPOS);
-
             Thread t1 = new Thread(ReciveMsg);
             t1.Start();
 
             Thread t2 = new Thread(sendMsg);
             t2.Start();
-            Console.ReadLine();
         }
     }
 }

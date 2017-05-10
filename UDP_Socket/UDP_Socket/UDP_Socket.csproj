@@ -40,6 +40,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="XPIPC_Module">
+      <HintPath>..\..\Module\Module\bin\Debug\XPIPC_Module.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CLI.cs" />

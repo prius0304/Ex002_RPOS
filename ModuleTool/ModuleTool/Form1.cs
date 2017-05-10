@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Module;
+using XPIPC_Module;
 
 namespace ModuleTool
 {

@@ -7,8 +7,8 @@
     <ProjectGuid>{02005245-4BDB-40DE-82AA-552F5646C146}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Module</RootNamespace>
-    <AssemblyName>Module</AssemblyName>
+    <RootNamespace>XPIPC_Module</RootNamespace>
+    <AssemblyName>XPIPC_Module</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
