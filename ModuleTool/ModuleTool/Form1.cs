@@ -62,25 +62,25 @@ namespace ModuleTool
         void display_rpos()
         {
             Console.Clear();
-            Console.WriteLine("dat_lon=         " + xpipc.Offset.dat_lon);
-            Console.WriteLine("dat_lat=         " + xpipc.Offset.dat_lat);
-            Console.WriteLine("dat_ele=         " + xpipc.Offset.dat_ele);
-            Console.WriteLine("y_agl_mtr=       " + xpipc.Offset.y_agl_mtr);
-            Console.WriteLine("veh_the_loc=     " + xpipc.Offset.veh_the_loc);
-            Console.WriteLine("veh_psi_loc=     " + xpipc.Offset.veh_psi_loc);
-            Console.WriteLine("veh_phi_loc=     " + xpipc.Offset.veh_phi_loc);
-            Console.WriteLine("vx_wrl=          " + xpipc.Offset.vx_wrl);
-            Console.WriteLine("vy_wrl=          " + xpipc.Offset.vy_wrl);
-            Console.WriteLine("vz_wrl=          " + xpipc.Offset.vz_wrl);
-            Console.WriteLine("Prad=            " + xpipc.Offset.Prad);
-            Console.WriteLine("Qrad=            " + xpipc.Offset.Qrad);
-            Console.WriteLine("Rrad=            " + xpipc.Offset.Rrad);
+            Console.WriteLine("dat_lon=         " + xpipc.offset.dat_lon);
+            Console.WriteLine("dat_lat=         " + xpipc.offset.dat_lat);
+            Console.WriteLine("dat_ele=         " + xpipc.offset.dat_ele);
+            Console.WriteLine("y_agl_mtr=       " + xpipc.offset.y_agl_mtr);
+            Console.WriteLine("veh_the_loc=     " + xpipc.offset.veh_the_loc);
+            Console.WriteLine("veh_psi_loc=     " + xpipc.offset.veh_psi_loc);
+            Console.WriteLine("veh_phi_loc=     " + xpipc.offset.veh_phi_loc);
+            Console.WriteLine("vx_wrl=          " + xpipc.offset.vx_wrl);
+            Console.WriteLine("vy_wrl=          " + xpipc.offset.vy_wrl);
+            Console.WriteLine("vz_wrl=          " + xpipc.offset.vz_wrl);
+            Console.WriteLine("Prad=            " + xpipc.offset.Prad);
+            Console.WriteLine("Qrad=            " + xpipc.offset.Qrad);
+            Console.WriteLine("Rrad=            " + xpipc.offset.Rrad);
         }
 
         private void btnGet_Click(object sender, EventArgs e)
         {
-            byte[] temp = xpipc.VEHX(0, 116.403147, 39.914365, 50, 0f, 0f, 0f);
-            for(int i =0;i<temp.Length;i++)
+            byte[] temp = xpipc.ACFN(0, @"Aircraft\Laminar Research\Cirrus SF-50\CirrusSF50.acf", 0);
+            for (int i =0;i<temp.Length;i++)
                 Console.Write(temp[i] + " ");
         }
     }

@@ -32,9 +32,13 @@ namespace UDP_Socket
             {
                 string msg = Console.ReadLine();
                 //server.SendTo(Encoding.UTF8.GetBytes(msg), point);
+
+                //server.SendTo(RPOS, point);
                 //server.SendTo(RADR, point);
-                //server.SendTo(xpipc.VEHX(0, 31.1500914774, 121.8582916260, 200.0, 0f, 0f, 0f), point);
-                server.SendTo(xpipc.PREL(Constant.START.loc_specify_lle, 0, "ZSPD", 34, 1, 31.118060, 121.807652, 0, 0, 0), point);
+                //server.SendTo(xpipc.ACFN(0, @"Aircraft\Laminar Research\Cessna 172SP\Cessna_172SP.acf", 0), point);
+                //server.SendTo(xpipc.VEHX(0, 28.118060, 119.807652, 1000.0, 0f, 0f, 0f), point);
+                //server.SendTo(xpipc.PREL(Constant.START.loc_nearest_apt, 0, "ZSSS", 34, 1, 31.118060, 119.807652, 0, 0, 0), point);
+                //server.SendTo(xpipc.ACPR(0, @"Aircraft\Laminar Research\Cirrus SF-50\CirrusSF50.acf", 0, Constant.START.loc_specify_lle, 0, "ZSPD", 34, 1, 31.118060, 121.807652, 0, 0, 0), point);
                 //server.SendTo(xpipc.CMND(Command.flight_controls.flaps_down), point);
             }
         }

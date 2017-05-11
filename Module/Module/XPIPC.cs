@@ -116,12 +116,11 @@ namespace XPIPC_Module
         {
             try
             {
-                byte[] command_arr = new byte[163];
+                byte[] command_arr = new byte[165];
                 string2xp("ACFN", command_arr, 0);
                 int2xp(acfn_p, command_arr, 5);
                 string2xp(acfn_path_rel, command_arr, 9);
-                int2xp(livery_index, command_arr, 159);
-
+                int2xp(livery_index, command_arr, 161);
                 return command_arr;
             }
             catch (Exception ex)
@@ -163,26 +162,25 @@ namespace XPIPC_Module
         {
             try
             {
-                byte[] command_arr = new byte[230];
+                byte[] command_arr = new byte[229];
 
-                string2xp("ACFN", command_arr, 0);
+                string2xp("ACPR", command_arr, 0);
                 int2xp(acfn_p, command_arr, 5);
                 string2xp(acfn_path_rel, command_arr, 9);
-                int2xp(livery_index, command_arr, 159);
+                int2xp(livery_index, command_arr, 160);
 
-                string2xp("", command_arr, 163);
+                string2xp("", command_arr, 164);
 
-                string2xp("PREL", command_arr, 164);
-                int2xp(type_start, command_arr, 169);
-                int2xp(p_idx, command_arr, 173);
-                string2xp(apt_id, command_arr, 177);
-                int2xp(apt_rwy_idx, command_arr, 182);
-                int2xp(apt_rwy_dir, command_arr, 186);
-                double2xp(dob_lat_deg, command_arr, 190);
-                double2xp(dob_lon_deg, command_arr, 198);
-                double2xp(dob_ele_mtr, command_arr, 206);
-                double2xp(dob_psi_tru, command_arr, 214);
-                double2xp(dob_spd_msc, command_arr, 222);
+                int2xp(type_start, command_arr, 165);
+                int2xp(p_idx, command_arr, 169);
+                string2xp(apt_id, command_arr, 173);
+                int2xp(apt_rwy_idx, command_arr, 181);
+                int2xp(apt_rwy_dir, command_arr, 185);
+                double2xp(dob_lat_deg, command_arr, 189);
+                double2xp(dob_lon_deg, command_arr, 197);
+                double2xp(dob_ele_mtr, command_arr, 205);
+                double2xp(dob_psi_tru, command_arr, 213);
+                double2xp(dob_spd_msc, command_arr, 221);
 
                 return command_arr;
             }
@@ -312,7 +310,7 @@ namespace XPIPC_Module
                 for (int i = 0; i < val.Length; i++)
                     des_arr[i + a] = Convert.ToByte(val[i]);
 
-                des_arr[ val.Length + 5] = 0x00;
+                des_arr[ val.Length + a] = 0x00;
 
                 return 0;
             }
