@@ -32,9 +32,10 @@ namespace UDP_Socket
             {
                 string msg = Console.ReadLine();
                 //server.SendTo(Encoding.UTF8.GetBytes(msg), point);
-                server.SendTo(RADR, point);
-                Console.WriteLine("Sent message.");
+                //server.SendTo(RADR, point);
                 //server.SendTo(xpipc.VEHX(0, 31.1500914774, 121.8582916260, 200.0, 0f, 0f, 0f), point);
+                server.SendTo(xpipc.PREL(Constant.START.loc_specify_lle, 0, "ZSPD", 34, 1, 31.118060, 121.807652, 0, 0, 0), point);
+                //server.SendTo(xpipc.CMND(Command.flight_controls.flaps_down), point);
             }
         }
 
@@ -57,28 +58,28 @@ namespace UDP_Socket
         static void display_rpos()
         {
             Console.Clear();
-            Console.WriteLine("dat_lon=         " + xpipc.Offset.dat_lon);
-            Console.WriteLine("dat_lat=         " + xpipc.Offset.dat_lat);
-            Console.WriteLine("dat_ele=         " + xpipc.Offset.dat_ele);
-            Console.WriteLine("y_agl_mtr=       " + xpipc.Offset.y_agl_mtr);
-            Console.WriteLine("veh_the_loc=     " + xpipc.Offset.veh_the_loc);
-            Console.WriteLine("veh_psi_loc=     " + xpipc.Offset.veh_psi_loc);
-            Console.WriteLine("veh_phi_loc=     " + xpipc.Offset.veh_phi_loc);
-            Console.WriteLine("vx_wrl=          " + xpipc.Offset.vx_wrl);
-            Console.WriteLine("vy_wrl=          " + xpipc.Offset.vy_wrl);
-            Console.WriteLine("vz_wrl=          " + xpipc.Offset.vz_wrl);
-            Console.WriteLine("Prad=            " + xpipc.Offset.Prad);
-            Console.WriteLine("Qrad=            " + xpipc.Offset.Qrad);
-            Console.WriteLine("Rrad=            " + xpipc.Offset.Rrad);
+            Console.WriteLine("dat_lon=         " + xpipc.offset.dat_lon);
+            Console.WriteLine("dat_lat=         " + xpipc.offset.dat_lat);
+            Console.WriteLine("dat_ele=         " + xpipc.offset.dat_ele);
+            Console.WriteLine("y_agl_mtr=       " + xpipc.offset.y_agl_mtr);
+            Console.WriteLine("veh_the_loc=     " + xpipc.offset.veh_the_loc);
+            Console.WriteLine("veh_psi_loc=     " + xpipc.offset.veh_psi_loc);
+            Console.WriteLine("veh_phi_loc=     " + xpipc.offset.veh_phi_loc);
+            Console.WriteLine("vx_wrl=          " + xpipc.offset.vx_wrl);
+            Console.WriteLine("vy_wrl=          " + xpipc.offset.vy_wrl);
+            Console.WriteLine("vz_wrl=          " + xpipc.offset.vz_wrl);
+            Console.WriteLine("Prad=            " + xpipc.offset.Prad);
+            Console.WriteLine("Qrad=            " + xpipc.offset.Qrad);
+            Console.WriteLine("Rrad=            " + xpipc.offset.Rrad);
         }
 
         static void display_radr()
         {
             Console.Clear();
-            Console.WriteLine("lon=                 " + xpipc.Offset.lon);
-            Console.WriteLine("lat=                 " + xpipc.Offset.lat);
-            Console.WriteLine("storm_level_0_100=   " + xpipc.Offset.storm_level_0_100);
-            Console.WriteLine("storm_height_meters= " + xpipc.Offset.storm_hight_meters);
+            Console.WriteLine("lon=                 " + xpipc.offset.lon);
+            Console.WriteLine("lat=                 " + xpipc.offset.lat);
+            Console.WriteLine("storm_level_0_100=   " + xpipc.offset.storm_level_0_100);
+            Console.WriteLine("storm_height_meters= " + xpipc.offset.storm_hight_meters);
         }
 
         static void Main(string[] args)

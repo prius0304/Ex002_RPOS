@@ -32,45 +32,46 @@ namespace XPIPC_Module
         #endregion
     }
 
-    public class constant
+    public class Constant
     {
-        #region "START"
-        public const int loc_repeat_last = 5;       // 给ATC或重置飞行使用
-        public const int loc_specify_lle = 6;       // 给地图使用
-        public const int loc_general_area = 7;  // 自动加载飞机并增加飞机数量
-        public const int loc_nearest_apt = 8;       // 加载新飞机，不改变位置
-        public const int loc_snap_load = 9;         // 从快照中加载，不改变航路与飞机位置
-        public const int loc_ram = 10;              // 斜坡开始
-        public const int loc_tak = 11;              // 跑道上起飞
-        public const int loc_vfr = 12;              // VFR进近
-        public const int loc_ifr = 13;              // IFR进近
-        public const int loc_grs = 14;              // 草地跑道
-        public const int loc_drt = 15;              // 脏跑道
-        public const int loc_grv = 16;              // 砂石跑道
-        public const int loc_wat = 17;              // 水上机位
-        public const int loc_pad = 18;              // 直升机停机坪
-        public const int loc_cat = 19;              // 舰载平台
-        public const int loc_tow = 20;              // 滑翔机，牵引机
-        public const int loc_win = 21;              // 滑翔机，卷扬机
-        public const int loc_frm = 22;              // 编队飞行
-        public const int loc_Are = 23;              // 重新加油- Boom
-        public const int loc_Nre = 24;              // 重新加油 - Basket
-        public const int loc_drp = 25;              // B52投掷
-        public const int loc_pig = 26;              // 坨着航天飞机
-        public const int loc_car = 27;              // 运输机进近
-        public const int loc_fri = 28;              // 护卫舰进近
-        public const int loc_rig = 29;              // 少油进近
-        public const int loc_pla = 30;              // 重油进近
-        public const int loc_fir = 31;              // 森林火灾进近
-        public const int loc_SO1 = 32;              // 航天飞机
-        public const int loc_SO2 = 33;              //  ""
-        public const int loc_SO3 = 34;              //  ""
-        public const int loc_SO4 = 35;              //  ""
-        public const int loc_shuttle_glide = 36; 	// 只能用于抛投坨着的航天飞机
-        #endregion
+        public class START
+        {
+            public const int loc_repeat_last = 5;       // 给ATC或重置飞行使用
+            public const int loc_specify_lle = 6;       // 给地图使用
+            public const int loc_general_area = 7;  // 自动加载飞机并增加飞机数量
+            public const int loc_nearest_apt = 8;       // 加载新飞机，不改变位置
+            public const int loc_snap_load = 9;         // 从快照中加载，不改变航路与飞机位置
+            public const int loc_ram = 10;              // 斜坡开始
+            public const int loc_tak = 11;              // 跑道上起飞
+            public const int loc_vfr = 12;              // VFR进近
+            public const int loc_ifr = 13;              // IFR进近
+            public const int loc_grs = 14;              // 草地跑道
+            public const int loc_drt = 15;              // 脏跑道
+            public const int loc_grv = 16;              // 砂石跑道
+            public const int loc_wat = 17;              // 水上机位
+            public const int loc_pad = 18;              // 直升机停机坪
+            public const int loc_cat = 19;              // 舰载平台
+            public const int loc_tow = 20;              // 滑翔机，牵引机
+            public const int loc_win = 21;              // 滑翔机，卷扬机
+            public const int loc_frm = 22;              // 编队飞行
+            public const int loc_Are = 23;              // 重新加油- Boom
+            public const int loc_Nre = 24;              // 重新加油 - Basket
+            public const int loc_drp = 25;              // B52投掷
+            public const int loc_pig = 26;              // 坨着航天飞机
+            public const int loc_car = 27;              // 运输机进近
+            public const int loc_fri = 28;              // 护卫舰进近
+            public const int loc_rig = 29;              // 少油进近
+            public const int loc_pla = 30;              // 重油进近
+            public const int loc_fir = 31;              // 森林火灾进近
+            public const int loc_SO1 = 32;              // 航天飞机
+            public const int loc_SO2 = 33;              //  ""
+            public const int loc_SO3 = 34;              //  ""
+            public const int loc_SO4 = 35;              //  ""
+            public const int loc_shuttle_glide = 36; 	// 只能用于抛投坨着的航天飞机
+        }
     }
 
-    public class command
+    public class Command
     {
         public const string none = "sim/none/none";                                      //Do nothing.
 

@@ -8,7 +8,7 @@ namespace XPIPC_Module
 {
     public class XPIPC
     {
-        public variable Offset = new variable();
+        public variable offset = new variable();
 
         public int Process(byte[] argv)
         {
@@ -49,19 +49,19 @@ namespace XPIPC_Module
         {
             try
             {
-                Offset.dat_lon = xp2double(argv, 0);
-                Offset.dat_lat = xp2double(argv, 8);
-                Offset.dat_ele = xp2double(argv, 16);
-                Offset.y_agl_mtr = xp2float(argv, 24);
-                Offset.veh_the_loc = xp2float(argv, 28);
-                Offset.veh_psi_loc = xp2float(argv, 32);
-                Offset.veh_phi_loc = xp2float(argv, 36);
-                Offset.vx_wrl = xp2float(argv, 40);
-                Offset.vy_wrl = xp2float(argv, 44);
-                Offset.vz_wrl = xp2float(argv, 58);
-                Offset.Prad = xp2float(argv, 52);
-                Offset.Qrad = xp2float(argv, 56);
-                Offset.Rrad = xp2float(argv, 60);
+                offset.dat_lon = xp2double(argv, 0);
+                offset.dat_lat = xp2double(argv, 8);
+                offset.dat_ele = xp2double(argv, 16);
+                offset.y_agl_mtr = xp2float(argv, 24);
+                offset.veh_the_loc = xp2float(argv, 28);
+                offset.veh_psi_loc = xp2float(argv, 32);
+                offset.veh_phi_loc = xp2float(argv, 36);
+                offset.vx_wrl = xp2float(argv, 40);
+                offset.vy_wrl = xp2float(argv, 44);
+                offset.vz_wrl = xp2float(argv, 58);
+                offset.Prad = xp2float(argv, 52);
+                offset.Qrad = xp2float(argv, 56);
+                offset.Rrad = xp2float(argv, 60);
                 return 0;
             }
             catch(Exception ex)
@@ -75,10 +75,10 @@ namespace XPIPC_Module
         {
             try
             {
-                Offset.lon = xp2float(argv, 0);
-                Offset.lat = xp2float(argv, 4);
-                Offset.storm_level_0_100 = xp2float(argv, 8);
-                Offset.storm_hight_meters = xp2float(argv, 12);
+                offset.lon = xp2float(argv, 0);
+                offset.lat = xp2float(argv, 4);
+                offset.storm_level_0_100 = xp2float(argv, 8);
+                offset.storm_hight_meters = xp2float(argv, 12);
                 return 0;
             }
             catch (Exception ex)
@@ -136,18 +136,18 @@ namespace XPIPC_Module
         {
             try
             {
-                byte[] command_arr = new byte[65];
+                byte[] command_arr = new byte[69];
                 string2xp("PREL", command_arr, 0);
                 int2xp(type_start, command_arr, 5);
                 int2xp(p_idx, command_arr, 9);
                 string2xp(apt_id, command_arr, 13);
-                int2xp(apt_rwy_idx, command_arr, 17);
-                int2xp(apt_rwy_dir, command_arr, 21);
-                double2xp(dob_lat_deg, command_arr,25);
-                double2xp(dob_lon_deg, command_arr,33);
-                double2xp(dob_ele_mtr, command_arr,41);
-                double2xp(dob_psi_tru, command_arr,49);
-                double2xp(dob_spd_msc, command_arr,57);
+                int2xp(apt_rwy_idx, command_arr, 21);
+                int2xp(apt_rwy_dir, command_arr, 25);
+                double2xp(dob_lat_deg, command_arr,29);
+                double2xp(dob_lon_deg, command_arr,37);
+                double2xp(dob_ele_mtr, command_arr,45);
+                double2xp(dob_psi_tru, command_arr,53);
+                double2xp(dob_spd_msc, command_arr,61);
 
                 return command_arr;
             }
@@ -163,7 +163,7 @@ namespace XPIPC_Module
         {
             try
             {
-                byte[] command_arr = new byte[229];
+                byte[] command_arr = new byte[230];
 
                 string2xp("ACFN", command_arr, 0);
                 int2xp(acfn_p, command_arr, 5);
@@ -176,13 +176,13 @@ namespace XPIPC_Module
                 int2xp(type_start, command_arr, 169);
                 int2xp(p_idx, command_arr, 173);
                 string2xp(apt_id, command_arr, 177);
-                int2xp(apt_rwy_idx, command_arr, 181);
-                int2xp(apt_rwy_dir, command_arr, 185);
-                double2xp(dob_lat_deg, command_arr, 189);
-                double2xp(dob_lon_deg, command_arr, 197);
-                double2xp(dob_ele_mtr, command_arr, 205);
-                double2xp(dob_psi_tru, command_arr, 213);
-                double2xp(dob_spd_msc, command_arr, 221);
+                int2xp(apt_rwy_idx, command_arr, 182);
+                int2xp(apt_rwy_dir, command_arr, 186);
+                double2xp(dob_lat_deg, command_arr, 190);
+                double2xp(dob_lon_deg, command_arr, 198);
+                double2xp(dob_ele_mtr, command_arr, 206);
+                double2xp(dob_psi_tru, command_arr, 214);
+                double2xp(dob_spd_msc, command_arr, 222);
 
                 return command_arr;
             }
@@ -198,8 +198,9 @@ namespace XPIPC_Module
         {
             try
             {
-                byte[] command_arr = new byte[163];
-
+                byte[] command_arr = new byte[6 + method.Length];
+                string2xp("CMND", command_arr, 0);
+                string2xp(method, command_arr, 5);
                 return command_arr;
             }
             catch (Exception ex)
@@ -309,9 +310,9 @@ namespace XPIPC_Module
             try
             {
                 for (int i = 0; i < val.Length; i++)
-                    des_arr[i+a] = Convert.ToByte(val[i]);
+                    des_arr[i + a] = Convert.ToByte(val[i]);
 
-                des_arr[ a + 5] = 0x00;
+                des_arr[ val.Length + 5] = 0x00;
 
                 return 0;
             }
