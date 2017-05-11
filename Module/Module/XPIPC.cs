@@ -45,6 +45,43 @@ namespace XPIPC_Module
             }
         }
 
+        public byte[] RPOS(int freq)
+        {
+            try
+            {
+                string freq_str = Convert.ToString(freq);
+                byte[] command_arr = new byte[freq_str.Length+6];
+                string2xp("RPOS", command_arr, 0);
+                string2xp(freq_str, command_arr, 5);
+                return command_arr;
+            }
+            catch (Exception ex)
+            {
+                byte[] err = new byte[1] { 0 };
+                Console.WriteLine(ex.Message);
+                return err;
+            }
+        }
+
+        public byte[] RADR(int freq)
+        {
+            try
+            {
+                string freq_str = Convert.ToString(freq);
+                byte[] command_arr = new byte[freq_str.Length + 6];
+                string2xp("RADR", command_arr, 0);
+                string2xp(freq_str, command_arr, 5);
+                return command_arr;
+
+            }
+            catch (Exception ex)
+            {
+                byte[] err = new byte[1] { 0 };
+                Console.WriteLine(ex.Message);
+                return err;
+            }
+        }
+
         private int RPOS_Process(byte[] argv)
         {
             try
@@ -64,7 +101,7 @@ namespace XPIPC_Module
                 offset.Rrad = xp2float(argv, 60);
                 return 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return -1;

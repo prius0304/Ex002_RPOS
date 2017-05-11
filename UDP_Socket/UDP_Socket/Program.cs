@@ -22,8 +22,6 @@ namespace UDP_Socket
         static XPIPC xpipc = new XPIPC();
 
         static byte[] help = new byte[4] { 0x48, 0x45, 0x4C, 0x50 };
-        static byte[] RPOS = new byte[] { 0x52, 0x50, 0x4F, 0x53, 0x00, 0x36, 0x00 };
-        static byte[] RADR = new byte[] { 0x52, 0x41, 0x44, 0x52, 0x00, 0x36, 0x00 };
 
         static void sendMsg()
         {
@@ -33,8 +31,8 @@ namespace UDP_Socket
                 string msg = Console.ReadLine();
                 //server.SendTo(Encoding.UTF8.GetBytes(msg), point);
 
-                //server.SendTo(RPOS, point);
-                //server.SendTo(RADR, point);
+                //server.SendTo(xpipc.RPOS(60), point);
+                //server.SendTo(xpipc.RADR(60), point);
                 //server.SendTo(xpipc.ACFN(0, @"Aircraft\Laminar Research\Cessna 172SP\Cessna_172SP.acf", 0), point);
                 //server.SendTo(xpipc.VEHX(0, 28.118060, 119.807652, 1000.0, 0f, 0f, 0f), point);
                 //server.SendTo(xpipc.PREL(Constant.START.loc_nearest_apt, 0, "ZSSS", 34, 1, 31.118060, 119.807652, 0, 0, 0), point);
