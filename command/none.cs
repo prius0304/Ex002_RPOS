@@ -1,1 +1,0 @@
-public const string none = "sim/none/none";                                      //Do nothing.

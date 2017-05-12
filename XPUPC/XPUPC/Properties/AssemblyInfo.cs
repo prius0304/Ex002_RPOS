@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("ModuleTool")]
+[assembly: AssemblyTitle("XPUPC")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ModuleTool")]
+[assembly: AssemblyProduct("XPUPC")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("1661b5f5-1bf2-4a9c-b4f5-a53a04cda9bf")]
+[assembly: Guid("3f866a39-34ae-4ba1-afbf-bd05a7a7b84c")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
