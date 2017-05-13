@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("XPUPC_Module")]
-[assembly: AssemblyDescription("Not for commercial use")]
+[assembly: AssemblyTitle("XPUPC_Example")]
+[assembly: AssemblyDescription("Not for Commercial use")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Skysim")]
-[assembly: AssemblyProduct("XPUPC")]
+[assembly: AssemblyProduct("XPUPC_Example")]
 [assembly: AssemblyCopyright("Copyright Skysim©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("3f866a39-34ae-4ba1-afbf-bd05a7a7b84c")]
+[assembly: Guid("026ed966-d18e-40df-854b-79a0433f58f9")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

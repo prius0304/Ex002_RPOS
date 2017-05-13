@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 
-namespace XPUPC
+namespace XPUPC_Module
 {
     public class XPUPC
     {
@@ -33,7 +34,7 @@ namespace XPUPC
                 EndPoint point = new IPEndPoint(IPAddress.Parse(Des_IP), Des_Port);
                 server.SendTo(argv, point);
 #if DEBUG
-                Console.WriteLine("发送的消息如下：");
+                Console.WriteLine("Send Message:");
                 for (int i = 0; i < argv.Length; i++)
                     Console.Write(argv[i] + " ");
                 Console.WriteLine();
@@ -50,7 +51,7 @@ namespace XPUPC
         /// UDP接收函数
         /// </summary>
         /// <returns> result </returns>
-        private void ReciveMsg()
+        private void ReceiveMsg()
         {
             while(true)
             {
@@ -62,7 +63,7 @@ namespace XPUPC
                     //Process();
 
 #if DEBUG
-                    Console.WriteLine("接收的消息如下：");
+                    Console.WriteLine("Receive Message:");
                     for (int i = 0; i < buffer.Length; i++)
                         Console.Write(buffer[i] + " ");
                     Console.WriteLine();
@@ -89,18 +90,18 @@ namespace XPUPC
                 server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 server.Bind(new IPEndPoint(IPAddress.Parse(Des_IP), Sou_Port));
 
-                T1 = new Thread(ReciveMsg);
+                T1 = new Thread(ReceiveMsg);
 
                 T1.Start();
 #if DEBUG
-                Console.WriteLine("服务端开启成功");
+                Console.WriteLine("XPUPC Started.");
 #endif
                 return 0;
             }
             catch (Exception ex)
             {
 #if DEBUG
-                Console.WriteLine("UDP启动失败。问题捕捉如下：");
+                Console.WriteLine("Failed to open. Catch:");
                 Console.WriteLine(ex.Message);
 #endif
                 return -1;
@@ -125,18 +126,34 @@ namespace XPUPC
                 server.Dispose();
 
 #if DEBUG
-                Console.WriteLine("服务端关闭成功。");
+                Console.WriteLine("XPUPC Closed.");
 #endif
                 return 0;
             }
             catch (Exception ex)
             {
 #if DEBUG
-                Console.WriteLine("服务端关闭失败。问题捕捉如下：");
+                Console.WriteLine("Failed to close. Catch:");
                 Console.WriteLine(ex.Message);
 #endif
                 return -1;
             }
+        }
+
+        /// <summary>
+        /// 更改目的IP
+        /// </summary>
+        /// <param name="IP_Address">参数1</param>
+        /// <returns> result </returns>
+        public int IP_CHG(string IP_Address)
+        {
+            if (Regex.IsMatch(IP_Address, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$") == true)
+            {
+                Des_IP = IP_Address;
+                return 0;
+            }
+            else
+                return -1;
         }
     }
 }

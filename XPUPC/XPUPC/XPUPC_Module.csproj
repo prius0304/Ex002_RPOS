@@ -7,8 +7,8 @@
     <ProjectGuid>{3F866A39-34AE-4BA1-AFBF-BD05A7A7B84C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XPUPC</RootNamespace>
-    <AssemblyName>XPUPC</AssemblyName>
+    <RootNamespace>XPUPC_Module</RootNamespace>
+    <AssemblyName>XPUPC_Module</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\XPUPC.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\XPUPC_Module.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
