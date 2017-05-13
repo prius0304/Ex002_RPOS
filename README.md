@@ -1,4 +1,5 @@
 # X-Plane-11
+# All commands have been tested and the project will be finished in next few months.
 It's a tool to communicate with X-Plane 11 in UDP port.</br></br>
 We try to make it easier for developers to use.We complete the name of several main commands and change the sequence of some parameters (such as latitude and longitude) to avoid any a mistake. We make all commands in class "command", so that you don't have to check out the command list if you are familiar with these inner commands.</br>
 We make a example in how to use XPUPC, please check the "XPUPC-Example" folder. You can easily use any .net languages to develop your own apps with XPUPC.dll.</br></br>
