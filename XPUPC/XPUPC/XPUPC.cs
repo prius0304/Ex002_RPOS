@@ -1,4 +1,5 @@
-﻿#define DEBUG
+﻿//#define DEBUG
+#undef DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -18,17 +19,24 @@ namespace XPUPC_Module
     /// </summary>
     public class XPUPC
     {
+        /// <summary>
+        /// 数据变量
+        /// </summary>
+        public Variable varible = new Variable();
+        /// <summary>
+        /// 指令定量
+        /// </summary>
+        public Constants constants = new Constants();
+
+        #region "UDP 部分"
+
         static string Des_IP = "127.0.0.1";
         static int Des_Port = 49000;
         static int Sou_Port = 56833;
         static Socket server;
+        static Thread ReceiveMessage;
 
-        static Thread T1;
-
-        public Variable varible = new Variable();
-        public Constants constants = new Constants();
-
-        #region "UDP 部分"
+        static bool isRun = false;
 
         /// <summary>
         /// UDP发送函数
@@ -51,7 +59,7 @@ namespace XPUPC_Module
             }
             catch (Exception ex)
             {
-                return -1;
+                throw new Exception("SendMsg", ex);
             }
         }
 
@@ -66,27 +74,23 @@ namespace XPUPC_Module
                 try
                 {
                     EndPoint point = new IPEndPoint(IPAddress.Any, 0);
-                    byte[] buffer = new byte[509];
+                    byte[] buffer = new byte[1024];
                     int length = server.ReceiveFrom(buffer, ref point);
 
                     if (length != 0)
-                    {
-                        //Process();
-
+                        UDP_Process(buffer);
 #if DEBUG
-                        Console.WriteLine("Receive Message:");
-                        for (int i = 0; i < length; i++)
-                            Console.Write(buffer[i] + " ");
-                        Console.WriteLine();
-                    }
+                    Console.Clear();
+                    Console.WriteLine("Receive Message:");
+                    for (int i = 0; i < length; i++)
+                        Console.Write(buffer[i] + " ");
+                    Console.WriteLine();
 #endif
                 }
+
                 catch (Exception ex)
                 {
-#if DEBUG
-                    Console.WriteLine("接收消息错误。问题捕捉如下：");
-                    Console.WriteLine(ex.Message);
-#endif 
+                    throw new Exception("ReceiveMsg", ex);
                 }
             }
         }
@@ -102,9 +106,10 @@ namespace XPUPC_Module
                 server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 server.Bind(new IPEndPoint(IPAddress.Parse(Des_IP), Sou_Port));
 
-                T1 = new Thread(ReceiveMsg);
+                ReceiveMessage = new Thread(ReceiveMsg);
 
-                T1.Start();
+                ReceiveMessage.Start();
+                isRun = true;
 #if DEBUG
                 Console.WriteLine("XPUPC Started.");
 #endif
@@ -112,11 +117,7 @@ namespace XPUPC_Module
             }
             catch (Exception ex)
             {
-#if DEBUG
-                Console.WriteLine("Failed to open. Catch:");
-                Console.WriteLine(ex.Message);
-#endif
-                return -1;
+                throw new Exception("Open", ex);
             }
         }
 
@@ -128,15 +129,15 @@ namespace XPUPC_Module
         {
             try
             {
-                if (T1.IsAlive == true)
+                if (ReceiveMessage.IsAlive == true)
                 {
-                    T1.Abort();
-                    while (T1.ThreadState != ThreadState.Aborted)
+                    ReceiveMessage.Abort();
+                    while (ReceiveMessage.ThreadState != ThreadState.Aborted)
                         Thread.Sleep(100);
                 }
 
                 server.Dispose();
-
+                isRun = false;
 #if DEBUG
                 Console.WriteLine("XPUPC Closed.");
 #endif
@@ -144,11 +145,7 @@ namespace XPUPC_Module
             }
             catch (Exception ex)
             {
-#if DEBUG
-                Console.WriteLine("Failed to close. Catch:");
-                Console.WriteLine(ex.Message);
-#endif
-                return -1;
+                throw new Exception("Close", ex);
             }
         }
 
@@ -175,16 +172,17 @@ namespace XPUPC_Module
         /// <returns></returns>
         public int Sou_Port_CHG(int port)
         {
-            try
-            {
-                Sou_Port = port;
-                return 1;
-            }
-            catch (Exception ex)
-            {
+             Sou_Port = port;
+            return 1;
+        }
 
-                return -1;
-            }
+        /// <summary>
+        /// 返回运行状态
+        /// </summary>
+        /// <returns></returns>
+        public bool isOpened()
+        {
+            return isRun;
         }
 
         #endregion
@@ -357,9 +355,69 @@ namespace XPUPC_Module
         #endregion
 
         #region "数据处理"
-        public void MakeAVal()
+        
+        /// <summary>
+        /// UDP数据处理
+        /// </summary>
+        /// <param name="argv"></param>
+        private void UDP_Process(byte[] argv)
         {
-            varible.RPOS_dat_lat = 2;
+            try
+            {
+                byte[] command_name_byte = new byte[4];
+                byte[] command_argv = new byte[argv.Length - 5];
+
+                for (int i = 0; i < 4; i++)
+                    command_name_byte[i] = argv[i];
+                string command_name = System.Text.Encoding.Default.GetString(command_name_byte);
+                for (int i = 0; i < argv.Length - 5; i++)
+                    command_argv[i] = argv[i + 5];
+
+                switch (command_name)
+                {
+                    case "RPOS":
+                        RPOS_Process(command_argv);
+                        break;
+                    case "RADR":
+                        //RADR_Process(command_argv);
+                        break;
+                    default:
+                        Console.WriteLine("Can't find command.");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("UDP_Process", ex);
+            }
+        }
+
+        /// <summary>
+        /// PROS数据处理
+        /// </summary>
+        /// <param name="argv"></param>
+        public void RPOS_Process(byte[] argv)
+        {
+            try
+            {
+                varible.RPOS_dat_lon = xp2double(argv, 0);
+                varible.RPOS_dat_lat = xp2double(argv, 8);
+                varible.RPOS_dat_ele = xp2double(argv, 16);
+                varible.RPOS_y_agl_mtr = xp2float(argv, 24);
+                varible.RPOS_veh_the_loc = xp2float(argv, 28);
+                varible.RPOS_veh_psi_loc = xp2float(argv, 32);
+                varible.RPOS_veh_phi_loc = xp2float(argv, 36);
+                varible.RPOS_vx_wrl = xp2float(argv, 40);
+                varible.RPOS_vy_wrl = xp2float(argv, 44);
+                varible.RPOS_vz_wrl = xp2float(argv, 58);
+                varible.RPOS_Prad = xp2float(argv, 52);
+                varible.RPOS_Qrad = xp2float(argv, 56);
+                varible.RPOS_Rrad = xp2float(argv, 60);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("RPOS_Process", ex);
+            }
         }
         #endregion
 
@@ -374,14 +432,14 @@ namespace XPUPC_Module
             {
                 string freq_str = Convert.ToString(frequency);
                 byte[] command = new byte[freq_str.Length + 6];
-                string2xp("RADR", command, 0);
+                string2xp("RPOS", command, 0);
                 string2xp(freq_str, command, 5);
                 SendMsg(command);
                 return 0;
             }
             catch(Exception ex)
             {
-                return -1;
+                throw new Exception("RPOS_Freq", ex);
             }
         }
 
@@ -402,7 +460,7 @@ namespace XPUPC_Module
             }
             catch(Exception ex)
             {
-                return -1;
+                throw new Exception("RADA_Freq", ex);
             }
         }
 
@@ -435,7 +493,7 @@ namespace XPUPC_Module
             }
             catch(Exception ex)
             {
-                return -1;
+                throw new Exception("VEHX", ex);
             }
         }
 
@@ -460,7 +518,7 @@ namespace XPUPC_Module
             }
             catch(Exception ex)
             {
-                return -1;
+                throw new Exception("ACFN", ex);
             }
         }
 
@@ -499,7 +557,7 @@ namespace XPUPC_Module
             }
             catch(Exception ex)
             {
-                return -1;
+                throw new Exception("PREL", ex);
             }
         }
 
@@ -548,7 +606,7 @@ namespace XPUPC_Module
             }
             catch(Exception ex)
             {
-                return -1;
+                throw new Exception("ACPR", ex);
             }
         }
 
@@ -569,7 +627,7 @@ namespace XPUPC_Module
             }
             catch(Exception ex)
             {
-                return -1;
+                throw new Exception("CMND", ex);
             }
         }
         #endregion

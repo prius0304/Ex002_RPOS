@@ -68,7 +68,7 @@ namespace XPUPC_Module
         {
             public const int loc_repeat_last = 5;       // 给ATC或重置飞行使用
             public const int loc_specify_lle = 6;       // 给地图使用
-            public const int loc_general_area = 7;  // 自动加载飞机并增加飞机数量
+            public const int loc_general_area = 7;      // 自动加载飞机并增加飞机数量
             public const int loc_nearest_apt = 8;       // 加载新飞机，不改变位置
             public const int loc_snap_load = 9;         // 从快照中加载，不改变航路与飞机位置
             public const int loc_ram = 10;              // 斜坡开始
