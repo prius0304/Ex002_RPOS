@@ -1,5 +1,5 @@
-﻿//#define DEBUG
-#undef DEBUG
+﻿#define DEBUG
+//#undef DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace XPUPC_Module
 {
@@ -80,7 +81,7 @@ namespace XPUPC_Module
                     if (length != 0)
                         UDP_Process(buffer);
 #if DEBUG
-                    Console.Clear();
+                    //Console.Clear();
                     Console.WriteLine("Receive Message:");
                     for (int i = 0; i < length; i++)
                         Console.Write(buffer[i] + " ");
@@ -419,14 +420,35 @@ namespace XPUPC_Module
                 throw new Exception("RPOS_Process", ex);
             }
         }
+
+        /// <summary>
+        /// RADR数据处理
+        /// </summary>
+        /// <param name="argv"></param>
+        /// <returns></returns>
+        private void RADR_Process(byte[] argv)
+        {
+            try
+            {
+                varible.RADR_lon = xp2float(argv, 0);
+                varible.RADR_lat = xp2float(argv, 4);
+                varible.RADR_storm_level_0_100 = xp2float(argv, 8);
+                varible.RADR_storm_hight_meters = xp2float(argv, 12);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("RADR_Process", ex);
+            }
+        }
+
         #endregion
 
         #region "指令发送"
         /// <summary>
-        /// 改变RPOS的频率
-        /// </summary>
-        /// <param name="frequency"></param>
-        public int RPOS_Freq(int frequency)
+            /// 改变RPOS的频率
+            /// </summary>
+            /// <param name="frequency"></param>
+        public void RPOS_Freq(int frequency)
         {
             try
             {
@@ -435,7 +457,6 @@ namespace XPUPC_Module
                 string2xp("RPOS", command, 0);
                 string2xp(freq_str, command, 5);
                 SendMsg(command);
-                return 0;
             }
             catch(Exception ex)
             {
@@ -447,7 +468,7 @@ namespace XPUPC_Module
         /// 改变RADR的频率
         /// </summary>
         /// <param name="frequency"></param>
-        public int RADA_Freq(int frequency)
+        public void RADA_Freq(int frequency)
         {
             try
             {
@@ -456,7 +477,6 @@ namespace XPUPC_Module
                 string2xp("RADR", command, 0);
                 string2xp(freq_str, command, 5);
                 SendMsg(command);
-                return 0;
             }
             catch(Exception ex)
             {
@@ -474,8 +494,7 @@ namespace XPUPC_Module
         /// <param name="veh_psi_true"></param>
         /// <param name="veh_the"></param>
         /// <param name="veh_phi"></param>
-        /// <returns></returns>
-        public int VEHX(int p, double dat_lon, double dat_lat, double dat_ele, float veh_psi_true, float veh_the, float veh_phi)
+        public void VEHX(int p, double dat_lon, double dat_lat, double dat_ele, float veh_psi_true, float veh_the, float veh_phi)
         {
             try
             {
@@ -489,7 +508,6 @@ namespace XPUPC_Module
                 float2xp(veh_the, command, 37);
                 float2xp(veh_phi, command, 41);
                 SendMsg(command);
-                return 0;
             }
             catch(Exception ex)
             {
@@ -503,8 +521,7 @@ namespace XPUPC_Module
         /// <param name="acfn_p"></param>
         /// <param name="acfn_path_rel"></param>
         /// <param name="livery_index"></param>
-        /// <returns></returns>
-        public int ACFN(int acfn_p, string acfn_path_rel, int livery_index)
+        public void ACFN(int acfn_p, string acfn_path_rel, int livery_index)
         {
             try
             {
@@ -514,7 +531,6 @@ namespace XPUPC_Module
                 string2xp(acfn_path_rel, command, 9);
                 int2xp(livery_index, command, 161);
                 SendMsg(command);
-                return 0;
             }
             catch(Exception ex)
             {
@@ -535,8 +551,7 @@ namespace XPUPC_Module
         /// <param name="dob_ele_mtr"></param>
         /// <param name="dob_psi_tru"></param>
         /// <param name="dob_spd_msc"></param>
-        /// <returns></returns>
-        public int PREL(int type_start, int p_idx, string apt_id, int apt_rwy_idx, int apt_rwy_dir, double dob_lat_deg, double dob_lon_deg, double dob_ele_mtr, double dob_psi_tru, double dob_spd_msc)
+        public void PREL(int type_start, int p_idx, string apt_id, int apt_rwy_idx, int apt_rwy_dir, double dob_lat_deg, double dob_lon_deg, double dob_ele_mtr, double dob_psi_tru, double dob_spd_msc)
         {
             try
             {
@@ -553,7 +568,6 @@ namespace XPUPC_Module
                 double2xp(dob_psi_tru, command, 53);
                 double2xp(dob_spd_msc, command, 61);
                 SendMsg(command);
-                return 0;
             }
             catch(Exception ex)
             {
@@ -577,8 +591,7 @@ namespace XPUPC_Module
         /// <param name="dob_ele_mtr"></param>
         /// <param name="dob_psi_tru"></param>
         /// <param name="dob_spd_msc"></param>
-        /// <returns></returns>
-        public int ACPR(int acfn_p, string acfn_path_rel, int livery_index, int type_start, int p_idx, string apt_id, int apt_rwy_idx, int apt_rwy_dir, double dob_lat_deg, double dob_lon_deg, double dob_ele_mtr, double dob_psi_tru, double dob_spd_msc)
+        public void ACPR(int acfn_p, string acfn_path_rel, int livery_index, int type_start, int p_idx, string apt_id, int apt_rwy_idx, int apt_rwy_dir, double dob_lat_deg, double dob_lon_deg, double dob_ele_mtr, double dob_psi_tru, double dob_spd_msc)
         {
             try
             {
@@ -602,7 +615,6 @@ namespace XPUPC_Module
                 double2xp(dob_psi_tru, command, 213);
                 double2xp(dob_spd_msc, command, 221);
                 SendMsg(command);
-                return 0;
             }
             catch(Exception ex)
             {
@@ -614,8 +626,7 @@ namespace XPUPC_Module
         /// CMND
         /// </summary>
         /// <param name="method"></param>
-        /// <returns></returns>
-        public int CMND(string method)
+        public void CMND(string method)
         {
             try
             {
@@ -623,13 +634,57 @@ namespace XPUPC_Module
                 string2xp("CMND", command, 0);
                 string2xp(method, command, 5);
                 SendMsg(command);
-                return 0;
             }
             catch(Exception ex)
             {
                 throw new Exception("CMND", ex);
             }
         }
+
+        /// <summary>
+        /// RREF
+        /// </summary>
+        /// <param name="dref_freq"></param>
+        /// <param name="dref_en"></param>
+        /// <param name="dref_string"></param>
+        public void RREF(int dref_freq, int dref_en, string dref_string)
+        {
+            try
+            {
+                byte[] command = new byte[413];
+                string2xp("RREF", command, 0);
+                int2xp(dref_freq, command, 5);
+                int2xp(dref_en, command, 9);
+                string2xp(dref_string, command, 13);
+                SendMsg(command);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("RREF", ex);
+            }
+        }
+
+        /// <summary>
+        /// DREF
+        /// </summary>
+        /// <param name="var"></param>
+        /// <param name="dref_path"></param>
+        public void DREF(dynamic var, string dref_path)
+        {
+            Type sysType = var.GetType();
+
+            if(sysType.FullName == "System.Int32")
+            {
+                Console.WriteLine("1");
+            }
+
+            if(sysType.FullName=="System.Single" || sysType.FullName == "System.Double")
+            {
+                float vals = (float)var;
+                Console.WriteLine("2");
+            }
+        }
+
         #endregion
     }
 }

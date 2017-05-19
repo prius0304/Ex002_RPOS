@@ -100,7 +100,7 @@ namespace XPUPC_Example
 
         private void btnRADR_Click(object sender, EventArgs e)
         {
-            xpupc.RADA_Freq(0);
+            xpupc.DREF(1.13, "");
         }
     }
 }
