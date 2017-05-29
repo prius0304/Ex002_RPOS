@@ -13,6 +13,8 @@ namespace XPUPC_Example
 {
     public partial class FormMain : Form
     {
+        XPUPC xpupc = new XPUPC();
+        
         public FormMain()
         {
             InitializeComponent();
@@ -20,10 +22,9 @@ namespace XPUPC_Example
 
         private void btConn_Click(object sender, EventArgs e)
         {
-            XPUPC xpupc = new XPUPC();
             xpupc.DEBUG(1);
             xpupc.Set_Ethe("127.0.0.1", 49000, 56000);
-            
+            xpupc.Open();
         }
     }
 }

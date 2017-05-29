@@ -156,7 +156,7 @@ namespace XPUPC_Module
             {
                 EndPoint point = new IPEndPoint(IPAddress.Parse(DestP_IP), DestP_PT);
                 server.SendTo(argv, point);
-                Trace.WriteLineIf(Debug_Switch, GetTime() + "SendMsg: " + argv);
+                Trace.WriteLineIf(Debug_Switch, GetTime() + "SendMsg: " + BitConverter.ToString(argv));
                 return 0;
             }
             catch (Exception ex)
@@ -181,7 +181,7 @@ namespace XPUPC_Module
 
                     //if (length != 0)
                         //UDP_Process(buffer);
-                    Trace.WriteLineIf(Debug_Switch, GetTime() + "ReceiveMsg: " + buffer);
+                    Trace.WriteLineIf(Debug_Switch, GetTime() + "ReceiveMsg: " + BitConverter.ToString(buffer));
                 }
 
                 catch (Exception ex)

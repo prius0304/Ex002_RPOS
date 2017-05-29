@@ -24,7 +24,7 @@ namespace XPUPC_Module
         /// Debug Switch
         /// </summary>
         /// <param name="Switch"></param>
-        protected void DEBUG(short Switch)
+        public void DEBUG(short Switch)
         {
             if (Switch != 0)
                 Debug_Switch = true;
