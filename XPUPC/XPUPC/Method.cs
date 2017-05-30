@@ -654,7 +654,6 @@ namespace XPUPC_Module
             return command;
         }
 
-
         /// <summary>
         /// ALRT NEED TO BE MODIFIED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         /// </summary>
