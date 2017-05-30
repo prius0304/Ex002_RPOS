@@ -20,6 +20,8 @@ namespace XPUPC_Module
         static Thread T_ReceiveMsg;
         static bool isRun;
 
+        #region "UDP Part"
+
         /// <summary>
         /// XPUDP constructor
         /// </summary>
@@ -190,5 +192,47 @@ namespace XPUPC_Module
                 }
             }
         }
+
+        /// <summary>
+        /// UDP Data Process
+        /// </summary>
+        /// <param name="argv"></param>
+        private void UDP_Proc(byte[] argv)
+        {
+            try
+            {
+                byte[] command_name_byte = new byte[4];
+                byte[] command_argv = new byte[argv.Length - 5];
+
+                for (int i = 0; i < 4; i++)
+                    command_name_byte[i] = argv[i];
+
+                string command_name = System.Text.Encoding.Default.GetString(command_name_byte);
+
+                for (int i = 0; i < argv.Length - 5; i++)
+                    command_argv[i] = argv[i + 5];
+
+                switch (command_name)
+                {
+                    case "RPOS":
+                        RPOS_Process(command_argv);
+                        break;
+                    case "RADR":
+                        //RADR_Process(command_argv);
+                        break;
+                    default:
+                        Trace.WriteLineIf(Debug_Switch, "Command can't be found.");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLineIf(Debug_Switch, "UDP Data Process error.");
+            }
+        }
+
+        #endregion
+
+
     }
 }

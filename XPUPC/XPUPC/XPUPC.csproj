@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Table.cs" />
     <Compile Include="WordMap.cs" />
     <Compile Include="XPUPC.cs" />
     <Compile Include="Method.cs" />

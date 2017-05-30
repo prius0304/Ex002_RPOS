@@ -23,8 +23,7 @@ namespace XPUPC_Example
         private void btConn_Click(object sender, EventArgs e)
         {
             xpupc.DEBUG(1);
-            xpupc.Set_Ethe("127.0.0.1", 49000, 56000);
-            xpupc.Open();
+            xpupc.ISE6(1, "0001:0002:0003:0004:0005:ffff:111.112.113.114", 49000,1);
         }
     }
 }
