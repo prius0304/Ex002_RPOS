@@ -107,6 +107,9 @@ namespace XPUPC_Module
 
         protected RPOS_Table RPOS_TABLE;
 
+        /// <summary>
+        /// RADR_Table
+        /// </summary>
         protected struct RADR_Table
         {
             private float Lon;               //雷达点经度
@@ -139,5 +142,63 @@ namespace XPUPC_Module
         };
 
         protected RADR_Table RADR_TABLE;
+
+        /// <summary>
+        /// BECN_Table
+        /// </summary>
+        protected struct BECN_Table
+        {
+            private char Beacon_major_version;  // 一次发送一个，主版本号
+            public char beacon_major_version
+            {
+                get { return Beacon_major_version; }
+                set { Beacon_major_version = value; }
+            }
+
+            private char Beacon_minor_version;  // 一次发送一个，副版本号
+            public char beacon_minor_version
+            {
+                get { return Beacon_minor_version; }
+                set { Beacon_minor_version = value; }
+            }
+
+            private int Application_host_id;    // 1是X-Plane，2是PlaneMaker
+            public int application_host_id
+            {
+                get { return Application_host_id; }
+                set { Application_host_id = value; }
+            }
+
+            private int Version_number;         // 104103是X-Plane 10.41r3
+            public int version_number
+            {
+                get { return Version_number; }
+                set { Version_number = value; }
+            }
+
+            private uint Role;                  // 1为主机，2是额外显示，3是IOS
+            public uint role
+            {
+                get { return Role; }
+                set { Role = value; }
+            }
+
+            private ushort Port;                // X-Plane监听的端口，49000为默认值
+            public ushort port
+            {
+                get { return Port; }
+                set { Port = value; }
+            }
+
+            private string Computer_name;       // 电脑的主机名，例如Joe’s Macbook
+            public string computer_name
+            {
+                get { return Computer_name; }
+                set { Computer_name = value; }
+            }
+        }
+
+        protected BECN_Table BECN_TABLE;
+
     }
 }

@@ -218,7 +218,10 @@ namespace XPUPC_Module
                         RPOS_Process(command_argv);
                         break;
                     case "RADR":
-                        //RADR_Process(command_argv);
+                        RADR_Process(command_argv);
+                        break;
+                    case "BECN":
+                        BECN_Process(command_argv);
                         break;
                     default:
                         Trace.WriteLineIf(Debug_Switch, "Command can't be found.");

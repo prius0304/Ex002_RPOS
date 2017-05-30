@@ -80,7 +80,7 @@ namespace XPUPC_Module
         }
 
         /// <summary>
-        /// byte数据转化为double
+        /// Convert to Double
         /// </summary>
         /// <param name="Sou_Arr"></param>
         /// <param name="Position"></param>
@@ -98,6 +98,28 @@ namespace XPUPC_Module
             {
                 Trace.WriteLine(GetTime() + "Conver to double error. Raw Data:" + Sou_Arr);
                 return -999;
+            }
+        }
+
+        /// <summary>
+        /// Convert to Char
+        /// </summary>
+        /// <param name="Sou_Arr"></param>
+        /// <param name="Position"></param>
+        /// <returns></returns>
+        protected char ToChar(byte[] Sou_Arr, int Position)
+        {
+            try
+            {
+                byte[] array = new byte[4];
+                for (int i = Position; i < Position + 4; i++)
+                    array[i - Position] = Sou_Arr[i];
+                return BitConverter.ToChar(array, 0);
+            }
+            catch(Exception ex)
+            {
+                Trace.WriteLine(GetTime() + "Conver to char error. Raw Data:" + Sou_Arr);
+                return '-';
             }
         }
 
@@ -404,36 +426,24 @@ namespace XPUPC_Module
         }
 
         /// <summary>
-        /// DATA  NEED MODIFY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /// DATA NEED TO BE MODIFIED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         /// </summary>
         /// <param name="Index"></param>
         /// <param name="Data"></param>
         /// <returns></returns>
-        public byte[] DATA(int Index, dynamic Data)
+        public byte[] DATA(int Index, double Data1, double Data2, double Data3, double Data4, double Data5, double Data6, double Data7, double Data8)
         {
-            byte[] command = new byte[17];
+            byte[] command = new byte[73];
             StringTo("DATA", command, 0);
             IntTo(Index, command, 5);
-
-            Type sysType = Data.GetType();
-
-            if (sysType.FullName == "Int32")
-            {
-                int vals = (int)Data;
-                IntTo(vals, command, 9);
-            }
-
-            if (sysType.FullName == "System.Single")
-            {
-                float vals = (float)Data;
-                FloatTo(vals, command, 9);
-            }
-
-            if (sysType.FullName == "System.Double")
-            {
-                double vals = (double)Data;
-                DoubleTo(vals, command, 9);
-            }
+            DoubleTo(Data1, command, 9);
+            DoubleTo(Data2, command, 17);
+            DoubleTo(Data3, command, 25);
+            DoubleTo(Data4, command, 33);
+            DoubleTo(Data5, command, 41);
+            DoubleTo(Data6, command, 49);
+            DoubleTo(Data7, command, 57);
+            DoubleTo(Data8, command, 65);
             return command;
         }
 
@@ -442,9 +452,11 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] DESL(string Index)
+        public byte[] DESL(int Index)
         {
-            byte[] command = new byte[20];
+            byte[] command = new byte[9];
+            StringTo("DESL", command, 0);
+            StringTo(Index.ToString(), command, 5);
             return command;
         }
 
@@ -455,7 +467,9 @@ namespace XPUPC_Module
         /// <returns></returns>
         public byte[] USEL(string Index)
         {
-            byte[] command = new byte[20];
+            byte[] command = new byte[9];
+            StringTo("USEL", command, 0);
+            StringTo(Index.ToString(), command, 5);
             return command;
         }
 
@@ -466,7 +480,9 @@ namespace XPUPC_Module
         /// <returns></returns>
         public byte[] DCOC(string Index)
         {
-            byte[] command = new byte[20];
+            byte[] command = new byte[9];
+            StringTo("DCOC", command, 0);
+            StringTo(Index.ToString(), command, 5);
             return command;
         }
 
@@ -477,7 +493,9 @@ namespace XPUPC_Module
         /// <returns></returns>
         public byte[] UCOC(string Index)
         {
-            byte[] command = new byte[20];
+            byte[] command = new byte[9];
+            StringTo("UCOC", command, 0);
+            StringTo(Index.ToString(), command, 5);
             return command;
         }
 
@@ -733,9 +751,7 @@ namespace XPUPC_Module
             return command;
         }
 
-
         #endregion
-
 
         #region "Decode"
 
@@ -743,7 +759,7 @@ namespace XPUPC_Module
         /// RPOS Data Process
         /// </summary>
         /// <param name="argv"></param>
-        public void RPOS_Process(byte[] argv)
+        protected void RPOS_Process(byte[] argv)
         {
             RPOS_TABLE.dat_lon = ToDouble(argv, 0);
             RPOS_TABLE.dat_lat = ToDouble(argv, 8);
@@ -764,12 +780,31 @@ namespace XPUPC_Module
         /// RADR Data Process
         /// </summary>
         /// <param name="argv"></param>
-        private void RADR_Process(byte[] argv)
+        protected void RADR_Process(byte[] argv)
         {
             RADR_TABLE.lon = ToFloat(argv, 0);
             RADR_TABLE.lat = ToFloat(argv, 4);
             RADR_TABLE.storm_level_0_100 = ToFloat(argv, 8);
             RADR_TABLE.storm_hight_meters = ToFloat(argv, 12);
+        }
+
+        /// <summary>
+        /// BECN
+        /// </summary>
+        /// <param name="argv"></param>
+        protected void BECN_Process(byte[] argv)
+        {
+            int i;
+
+            BECN_TABLE.beacon_major_version = ToChar(argv, 0);
+            BECN_TABLE.beacon_minor_version = ToChar(argv, 4);
+            BECN_TABLE.application_host_id = ToInt(argv, 8);
+            BECN_TABLE.version_number = ToInt(argv, 12);
+            BECN_TABLE.role = (uint)ToInt(argv, 16);
+            BECN_TABLE.port = (ushort)ToInt(argv, 20);
+            BECN_TABLE.computer_name = "";
+            for (i = 24; i < argv.Length; i++)
+                BECN_TABLE.computer_name += ToChar(argv, i);
         }
 
         #endregion
