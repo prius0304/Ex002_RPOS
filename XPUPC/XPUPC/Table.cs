@@ -11,7 +11,7 @@ namespace XPUPC_Module
         /// <summary>
         /// RPOS_Table
         /// </summary>
-        protected struct RPOS_Table
+        public struct RPOS_Table
         {
             private double Dat_lon;         //经度，度
             public double dat_lon
@@ -105,12 +105,12 @@ namespace XPUPC_Module
             }
         };
 
-        protected RPOS_Table RPOS_TABLE;
+        public RPOS_Table RPOS_TABLE;
 
         /// <summary>
         /// RADR_Table
         /// </summary>
-        protected struct RADR_Table
+        public struct RADR_Table
         {
             private float Lon;               //雷达点经度
             public float lon
@@ -141,12 +141,12 @@ namespace XPUPC_Module
             }
         };
 
-        protected RADR_Table RADR_TABLE;
+        public RADR_Table RADR_TABLE;
 
         /// <summary>
         /// BECN_Table
         /// </summary>
-        protected struct BECN_Table
+        public struct BECN_Table
         {
             private char Beacon_major_version;  // 一次发送一个，主版本号
             public char beacon_major_version
@@ -198,7 +198,7 @@ namespace XPUPC_Module
             }
         }
 
-        protected BECN_Table BECN_TABLE;
+        public BECN_Table BECN_TABLE;
 
     }
 }

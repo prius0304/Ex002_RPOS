@@ -227,9 +227,9 @@ namespace XPUPC_Module
         /// <summary>
         /// Set RPOS Frequency
         /// </summary>
-        /// <param name="frequency"></param>
+        /// <param name="Frequency"></param>
         /// <returns></returns>
-        public byte[] RPOS_Freq(int Frequency)
+        protected byte[] RPOS_Freq(int Frequency)
         {
             string freq_str = Convert.ToString(Frequency);
             byte[] command = new byte[freq_str.Length + 6];
@@ -243,7 +243,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Frequency"></param>
         /// <returns></returns>
-        public byte[] RADA_Freq(int Frequency)
+        protected byte[] RADA_Freq(int Frequency)
         {
             string freq_str = Convert.ToString(Frequency);
             byte[] command = new byte[freq_str.Length + 6];
@@ -263,7 +263,7 @@ namespace XPUPC_Module
         /// <param name="Pitch"></param>
         /// <param name="Roll"></param>
         /// <returns></returns>
-        public byte[] VEHX(int Index, double Longitude, double Latitude, double Elevation, float Heading, float Pitch, float Roll)
+        protected byte[] VEHX(int Index, double Longitude, double Latitude, double Elevation, float Heading, float Pitch, float Roll)
         {
             byte[] command = new byte[45];
             StringTo("VEHX", command, 0);
@@ -284,7 +284,7 @@ namespace XPUPC_Module
         /// <param name="Dir_Path"></param>
         /// <param name="Livery_Index"></param>
         /// <returns></returns>
-        public byte[] ACFN(int Index, string Dir_Path, int Livery_Index)
+        protected byte[] ACFN(int Index, string Dir_Path, int Livery_Index)
         {
             byte[] command = new byte[165];
             StringTo("ACFN", command, 0);
@@ -308,7 +308,7 @@ namespace XPUPC_Module
         /// <param name="Heading"></param>
         /// <param name="Speed"></param>
         /// <returns></returns>
-        public byte[] PREL(int Type_Start, int Aircraft_Index, string Airport_ID, int Airport_Runway, int Runway_Direction, double Longitude, double Latitude, double Elevation, double Heading, double Speed)
+        protected byte[] PREL(int Type_Start, int Aircraft_Index, string Airport_ID, int Airport_Runway, int Runway_Direction, double Longitude, double Latitude, double Elevation, double Heading, double Speed)
         {
             byte[] command = new byte[69];
             StringTo("PREL", command, 0);
@@ -342,7 +342,7 @@ namespace XPUPC_Module
         /// <param name="Heading"></param>
         /// <param name="Speed"></param>
         /// <returns></returns>
-        public byte[] ACPR(int Index, string Dir_Path, int Livery_Index, int Type_Start, int Aircraft_Index, string Airport_ID, int Airport_Runway, int Runway_Direction, double Longitude, double Latitude, double Elevation, double Heading, double Speed)
+        protected byte[] ACPR(int Index, string Dir_Path, int Livery_Index, int Type_Start, int Aircraft_Index, string Airport_ID, int Airport_Runway, int Runway_Direction, double Longitude, double Latitude, double Elevation, double Heading, double Speed)
         {
             byte[] command = new byte[229];
 
@@ -372,7 +372,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Method"></param>
         /// <returns></returns>
-        public byte[] CMND(string Method)
+        protected byte[] CMND(string Method)
         {
             byte[] command = new byte[6 + Method.Length];
             StringTo("CMND", command, 0);
@@ -387,7 +387,7 @@ namespace XPUPC_Module
         /// <param name="DataRef_Index"></param>
         /// <param name="DataRref"></param>
         /// <returns></returns>
-        public byte[] RREF(int Frequency, int DataRef_Index, string DataRref)
+        protected byte[] RREF(int Frequency, int DataRef_Index, string DataRref)
         {
             byte[] command = new byte[413];
             StringTo("RREF", command, 0);
@@ -403,7 +403,7 @@ namespace XPUPC_Module
         /// <param name="Value"></param>
         /// <param name="DataRef"></param>
         /// <returns></returns>
-        public byte[] DREF(dynamic Value, string DataRef)
+        protected byte[] DREF(dynamic Value, string DataRef)
         {
             Type sysType = Value.GetType();
             byte[] command = new byte[509];
@@ -426,12 +426,12 @@ namespace XPUPC_Module
         }
 
         /// <summary>
-        /// DATA NEED TO BE MODIFIED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /// DATA
         /// </summary>
         /// <param name="Index"></param>
         /// <param name="Data"></param>
         /// <returns></returns>
-        public byte[] DATA(int Index, double Data1, double Data2, double Data3, double Data4, double Data5, double Data6, double Data7, double Data8)
+        protected byte[] DATA(int Index, double Data1, double Data2, double Data3, double Data4, double Data5, double Data6, double Data7, double Data8)
         {
             byte[] command = new byte[73];
             StringTo("DATA", command, 0);
@@ -452,7 +452,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] DESL(int Index)
+        protected byte[] DESL(int Index)
         {
             byte[] command = new byte[9];
             StringTo("DESL", command, 0);
@@ -465,7 +465,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] USEL(string Index)
+        protected byte[] USEL(string Index)
         {
             byte[] command = new byte[9];
             StringTo("USEL", command, 0);
@@ -478,7 +478,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] DCOC(string Index)
+        protected byte[] DCOC(string Index)
         {
             byte[] command = new byte[9];
             StringTo("DCOC", command, 0);
@@ -491,7 +491,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] UCOC(string Index)
+        protected byte[] UCOC(string Index)
         {
             byte[] command = new byte[9];
             StringTo("UCOC", command, 0);
@@ -507,7 +507,7 @@ namespace XPUPC_Module
         /// <param name="Destination_Port"></param>
         /// <param name="Multi_IP"></param>
         /// <returns></returns>
-        public byte[] ISE4(int Type_Ethe, string Destination_IP, int Destination_Port, int Multi_IP)
+        protected byte[] ISE4(int Type_Ethe, string Destination_IP, int Destination_Port, int Multi_IP)
         {
             byte[] command = new byte[37];
             StringTo("ISE4", command, 0);
@@ -535,7 +535,7 @@ namespace XPUPC_Module
         /// <param name="Destination_Port"></param>
         /// <param name="Multi_IP"></param>
         /// <returns></returns>
-        public byte[] ISE6(int Type_Ethe, string Destination_IP, int Destination_Port, int Multi_IP)
+        protected byte[] ISE6(int Type_Ethe, string Destination_IP, int Destination_Port, int Multi_IP)
         {
             byte[] command = new byte[65];
             StringTo("ISE4", command, 0);
@@ -562,7 +562,7 @@ namespace XPUPC_Module
         /// <param name="Volume"></param>
         /// <param name="Path"></param>
         /// <returns></returns>
-        public byte[] SOUN(int Frequency, int Volume, string Path)
+        protected byte[] SOUN(int Frequency, int Volume, string Path)
         {
             byte[] command = new byte[514];
             StringTo("SOUN", command, 0);
@@ -580,7 +580,7 @@ namespace XPUPC_Module
         /// <param name="Volume"></param>
         /// <param name="Path"></param>
         /// <returns></returns>
-        public byte[] LSND(int Index, int Frequency, int Volume, string Path)
+        protected byte[] LSND(int Index, int Frequency, int Volume, string Path)
         {
             byte[] command = new byte[518];
             StringTo("LSND", command, 0);
@@ -599,7 +599,7 @@ namespace XPUPC_Module
         /// <param name="Volume"></param>
         /// <param name="Path"></param>
         /// <returns></returns>
-        public byte[] SSND(int Index, int Frequency, int Volume, string Path)
+        protected byte[] SSND(int Index, int Frequency, int Volume, string Path)
         {
             byte[] command = new byte[518];
             StringTo("SSND", command, 0);
@@ -616,7 +616,7 @@ namespace XPUPC_Module
         /// <param name="Index"></param>
         /// <param name="Path"></param>
         /// <returns></returns>
-        public byte[] OBJN(int Index, string Path)
+        protected byte[] OBJN(int Index, string Path)
         {
             byte[] command = new byte[510];
             StringTo("OBJN", command, 0);
@@ -638,7 +638,7 @@ namespace XPUPC_Module
         /// <param name="IsOnGound"></param>
         /// <param name="Smook_Size"></param>
         /// <returns></returns>
-        public byte[] OBJL(int Index, double Longitude, double Latitude, double Elevation, float Heading, float Pitch, float Roll, int IsOnGound, float Smook_Size)
+        protected byte[] OBJL(int Index, double Longitude, double Latitude, double Elevation, float Heading, float Pitch, float Roll, int IsOnGound, float Smook_Size)
         {
             byte[] command = new byte[53];
             StringTo("OBJL", command, 0);
@@ -659,7 +659,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public byte[] ALRT(string msg)
+        protected byte[] ALRT(string msg)
         {
             byte[] command = new byte[966];
             return command;
@@ -670,7 +670,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] FAIL(int Index)
+        protected byte[] FAIL(int Index)
         {
             byte[] command = new byte[9];
             StringTo("FAIL", command, 0);
@@ -683,7 +683,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] RECO(int Index)
+        protected byte[] RECO(int Index)
         {
             byte[] command = new byte[9];
             StringTo("RECO", command, 0);
@@ -696,7 +696,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] NFAL(int Index)
+        protected byte[] NFAL(int Index)
         {
             byte[] command = new byte[9];
             StringTo("NFAL", command, 0);
@@ -709,7 +709,7 @@ namespace XPUPC_Module
         /// </summary>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public byte[] NREC(int Index)
+        protected byte[] NREC(int Index)
         {
             byte[] command = new byte[9];
             StringTo("NREC", command, 0);
@@ -721,7 +721,7 @@ namespace XPUPC_Module
         /// RESE
         /// </summary>
         /// <returns></returns>
-        public byte[] RESE()
+        protected byte[] RESE()
         {
             byte[] command = new byte[5];
             StringTo("RESE", command, 0);
@@ -732,7 +732,7 @@ namespace XPUPC_Module
         /// QUIT
         /// </summary>
         /// <returns></returns>
-        public byte[] QUIT()
+        protected byte[] QUIT()
         {
             byte[] command = new byte[5];
             StringTo("QUIT", command, 0);
@@ -743,7 +743,7 @@ namespace XPUPC_Module
         /// SHUT
         /// </summary>
         /// <returns></returns>
-        public byte[] SHUT()
+        protected byte[] SHUT()
         {
             byte[] command = new byte[5];
             StringTo("SHUT", command, 0);

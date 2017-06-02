@@ -90,11 +90,7 @@ namespace XPUPC_Module
             try
             {
                 if (T_ReceiveMsg.IsAlive == true)
-                {
                     T_ReceiveMsg.Abort();
-                    while (T_ReceiveMsg.ThreadState != System.Threading.ThreadState.Aborted)
-                        Thread.Sleep(10);
-                }
 
                 Trace.WriteLineIf(Debug_Switch, GetTime() + "UDP closed.");
                 server.Dispose();
@@ -181,8 +177,8 @@ namespace XPUPC_Module
                     byte[] buffer = new byte[1024];
                     int length = server.ReceiveFrom(buffer, ref point);
 
-                    //if (length != 0)
-                        //UDP_Process(buffer);
+                    if (length != 0)
+                        UDP_Proc(buffer);
                     Trace.WriteLineIf(Debug_Switch, GetTime() + "ReceiveMsg: " + BitConverter.ToString(buffer));
                 }
 
@@ -236,6 +232,13 @@ namespace XPUPC_Module
 
         #endregion
 
-
+        /// <summary>
+        /// Set_RPOS_Freq
+        /// </summary>
+        /// <param name="Frequency"></param>
+        public void Set_RPOS_Freq(int Frequency)
+        {
+            SendMsg(RPOS_Freq(Frequency));
+        }
     }
 }
